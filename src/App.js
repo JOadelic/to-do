@@ -1,29 +1,61 @@
 import React, { useState } from 'react';
-import './App.css';
-import ToDos from './components/ToDos.js';
+import './App.css'
 
-export default function App() {
-  const [todos, setToDos] = useState([
-    {id: 1,
-     title: "make app", 
-     description: "take home project", 
-     status: "pending"},
-     {id: 2,
-      title: "workout", 
-      description: "go for a run", 
-      status: "pending"},
-     {id: 3,
-       title: "food", 
-       description: "make dinner", 
-       status: "pending"}
-    ])
+export default function ToDo() {
+  const [tasks, setTasks] = useState([]);
+  const [input, setInput] = useState('');
+
+  
+  const formSubmit = (e) => {
+    e.preventDefault();
+    
+    let task = e.target.elements.task.value;
+    
+    if (task) {
+      setTasks((prev) => [...prev, task]);
+      setInput('')
+    }
+  }
+
+  const clearTasks = () => {
+    setTasks([])
+  }
+
+  const choose = () => {
+    let chosenTask = Math.floor(Math.random() * tasks.length)
+    alert(`Select task ${chosenTask + 1}`)
+  }
+
+  const handleInputChange = (event) => {
+    setInput(event.target.value)
+  }
+
+  const deleteTask = () => {
+
+  }
 
   return (
-    <div className="App">
-      <h1>App</h1>
-      <ToDos todos={todos}/>
+    <div className='app'>
+      <h1>To Do List</h1>
+      <div className="todo-list">
+        <form onSubmit={formSubmit}>
+          <input
+           className="input"
+           type='text'
+           name='task'
+           value={input}
+           onChange={handleInputChange}
+           placeholder="title"
+          />
+          <button className="btn">Add Task</button>
+          {/* {!input ? "" : <div>Add A Task!</div>} */}
+        </form>
+        <ol>
+          {tasks.map(task => (<li className='todo' key={task}>{task}</li>))}
+        </ol>
+        <button disabled={tasks.length < 1 ? true : false} onClick={choose}>Select Random Task</button>
+        <button onClick={clearTasks}>Clear list</button>
+      </div>
     </div>
-  );
+  )
 }
-
-
