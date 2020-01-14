@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import './App.css'
 import classNames from 'classnames'
+import Button from '@material-ui/core/Button';
+import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import {
+  DatePicker,
+  TimePicker,
+  DateTimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 
 
 export default function ToDo() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
   const [descriptionInput, setDescriptionInput] = useState('');
-  console.log('tasks',tasks)
+  const [selectedDate, handleDateChange] = useState(new Date());
+  console.log(tasks);
 
   // formSubmit adds new task and updates state
   const formSubmit = (e) => {
@@ -15,9 +24,11 @@ export default function ToDo() {
     
     let task = {
       id: Math.random() + 1,
-      title: e.target.elements.task.value.toUpperCase(), 
+      title: e.target.elements.task.value, 
       description: e.target.elements.description.value,
-      isCompleted: false
+      isCompleted: false,
+      dateCreated: selectedDate,
+      finishBy: handleDateChange(selectedDate)
     }
 
     if (task.title === "" || task.description === "") return alert("no task entered!")
@@ -68,9 +79,12 @@ export default function ToDo() {
 
   return (
     <div className='app'>
-      <h1>To Do List</h1>
+      <div className='title'>
+        To Do List
+      </div>
       <div className="todo-list">
         <form onSubmit={formSubmit}>
+          Title:
           <input
            className="input"
            type='text'
@@ -79,6 +93,7 @@ export default function ToDo() {
            onChange={handleTitleChange}
            placeholder="title"
           />
+          Description:
           <input
            className="input"
            type='text'
@@ -87,6 +102,11 @@ export default function ToDo() {
            onChange={handleDescriptionChange}
            placeholder="description"
           /> 
+          Finish By: <br></br>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker value={selectedDate} onChange={handleDateChange} />
+          </MuiPickersUtilsProvider>
+          <br></br>
           <button onSubmit={formSubmit} className="btn">Add Task</button>
         </form>
         <button onClick={clearTasks}>Clear list</button>
