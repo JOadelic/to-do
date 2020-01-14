@@ -15,7 +15,7 @@ export default function ToDo() {
     
     let task = {
       id: Math.random() + 1,
-      title: e.target.elements.task.value, 
+      title: e.target.elements.task.value.toUpperCase(), 
       description: e.target.elements.description.value,
       isCompleted: false
     }
@@ -39,7 +39,7 @@ export default function ToDo() {
     setInput(event.target.value)
   }
   
-  // handles the deletion of single tasks
+  // handles the deletion of single tasks, keeps all tasks that don't == id
   const handleTaskDelete = (id) => {
     const updatedTaskList = tasks.filter(task => task.id !== id)
     setTasks(updatedTaskList);
@@ -60,11 +60,11 @@ export default function ToDo() {
     for (let task of tasks) {
       if (id === task.id) {
         task.isCompleted = true;
+        setTasks([...tasks])
         console.log(tasks)
       }
     }
   }
-
 
   return (
     <div className='app'>
@@ -93,9 +93,10 @@ export default function ToDo() {
       </div>
         <div>
           {tasks.map(task => (
-          <div className='todo' key={task}>
+          <div className={classNames(task.isCompleted ? 'todo-completed' : 'todo')} key={task}>
             {task.title}<br></br>
             {task.description}
+            {!task.isCompleted ? <p>PENDING</p> : <p>COMPLETED</p>}
             <button onClick={() => handleTaskDelete(task.id)}>delete</button>
             <button onClick={() => handleTaskEdit(task.id)}>edit</button>
             <button onClick={() => markCompleted(task.id)}>completed</button>
@@ -104,5 +105,3 @@ export default function ToDo() {
     </div>
   )
 }
-
-{/* <li className={classNames("single-conversation", { "hidden": props.uniqueid !== props.convo })}> */}

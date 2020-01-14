@@ -60,3 +60,8 @@ a {
   align-items: left;
   flex-direction: column;
 }
+
+/* .completed {
+  background-color: bisque;
+  text-align: center;
+} */
