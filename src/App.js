@@ -1,38 +1,70 @@
 import React, { useState } from 'react';
 import './App.css'
+import classNames from 'classnames'
+
 
 export default function ToDo() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
+  const [descriptionInput, setDescriptionInput] = useState('');
+  console.log('tasks',tasks)
 
-  
+  // formSubmit adds new task and updates state
   const formSubmit = (e) => {
     e.preventDefault();
     
-    let task = e.target.elements.task.value;
+    let task = {
+      id: Math.random() + 1,
+      title: e.target.elements.task.value, 
+      description: e.target.elements.description.value,
+      isCompleted: false
+    }
+
+    if (task.title === "" || task.description === "") return alert("no task entered!")
     
     if (task) {
       setTasks((prev) => [...prev, task]);
-      setInput('')
+      setInput('');
+      setDescriptionInput('');
     }
   }
 
+  // clears the entire list of tasks
   const clearTasks = () => {
     setTasks([])
   }
 
-  const choose = () => {
-    let chosenTask = Math.floor(Math.random() * tasks.length)
-    alert(`Select task ${chosenTask + 1}`)
-  }
-
-  const handleInputChange = (event) => {
+  // handles input for task title
+  const handleTitleChange = (event) => {
     setInput(event.target.value)
   }
+  
+  // handles the deletion of single tasks
+  const handleTaskDelete = (id) => {
+    const updatedTaskList = tasks.filter(task => task.id !== id)
+    setTasks(updatedTaskList);
+  }
 
-  const deleteTask = () => {
+  // handles input for task description
+  const handleDescriptionChange = (event) => {
+    setDescriptionInput(event.target.value)
+  }
+
+  // handles the edit of task
+  const handleTaskEdit = (id) => {
 
   }
+
+  // marks task completed
+  const markCompleted = (id) => {
+    for (let task of tasks) {
+      if (id === task.id) {
+        task.isCompleted = true;
+        console.log(tasks)
+      }
+    }
+  }
+
 
   return (
     <div className='app'>
@@ -44,18 +76,33 @@ export default function ToDo() {
            type='text'
            name='task'
            value={input}
-           onChange={handleInputChange}
+           onChange={handleTitleChange}
            placeholder="title"
           />
-          <button className="btn">Add Task</button>
-          {/* {!input ? "" : <div>Add A Task!</div>} */}
+          <input
+           className="input"
+           type='text'
+           name='description'
+           value={descriptionInput}
+           onChange={handleDescriptionChange}
+           placeholder="description"
+          /> 
+          <button onSubmit={formSubmit} className="btn">Add Task</button>
         </form>
-        <ol>
-          {tasks.map(task => (<li className='todo' key={task}>{task}</li>))}
-        </ol>
-        <button disabled={tasks.length < 1 ? true : false} onClick={choose}>Select Random Task</button>
         <button onClick={clearTasks}>Clear list</button>
       </div>
+        <div>
+          {tasks.map(task => (
+          <div className='todo' key={task}>
+            {task.title}<br></br>
+            {task.description}
+            <button onClick={() => handleTaskDelete(task.id)}>delete</button>
+            <button onClick={() => handleTaskEdit(task.id)}>edit</button>
+            <button onClick={() => markCompleted(task.id)}>completed</button>
+          </div>))}
+        </div>
     </div>
   )
 }
+
+{/* <li className={classNames("single-conversation", { "hidden": props.uniqueid !== props.convo })}> */}
