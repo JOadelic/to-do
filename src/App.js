@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css'
+import React, { useState, forwardRef } from 'react';
+import './App.scss'
 import classNames from 'classnames'
 import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
@@ -16,8 +16,7 @@ export default function ToDo() {
   const [input, setInput] = useState('');
   const [descriptionInput, setDescriptionInput] = useState('');
   const [selectedDate, handleDateChange] = useState(new Date());
-  console.log(tasks);
-
+  
   // formSubmit adds new task and updates state
   const formSubmit = (e) => {
     e.preventDefault();
@@ -27,8 +26,8 @@ export default function ToDo() {
       title: e.target.elements.task.value, 
       description: e.target.elements.description.value,
       isCompleted: false,
-      dateCreated: selectedDate,
-      finishBy: handleDateChange(selectedDate)
+      dateCreated: new Date(),
+      finishBy: selectedDate
     }
 
     if (task.title === "" || task.description === "") return alert("no task entered!")
@@ -84,7 +83,7 @@ export default function ToDo() {
       </div>
       <div className="todo-list">
         <form onSubmit={formSubmit}>
-          Title:
+          <p>Title:</p>
           <input
            className="input"
            type='text'
@@ -93,7 +92,7 @@ export default function ToDo() {
            onChange={handleTitleChange}
            placeholder="title"
           />
-          Description:
+          <p>Description:</p>
           <input
            className="input"
            type='text'
@@ -102,14 +101,17 @@ export default function ToDo() {
            onChange={handleDescriptionChange}
            placeholder="description"
           /> 
-          Finish By: <br></br>
+          <p>Finish By: <i>click date to change</i></p>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker value={selectedDate} onChange={handleDateChange} />
+            <DatePicker
+               value={selectedDate}
+               onChange={handleDateChange}
+                />
           </MuiPickersUtilsProvider>
           <br></br>
           <button onSubmit={formSubmit} className="btn">Add Task</button>
         </form>
-        <button onClick={clearTasks}>Clear list</button>
+        <button onClick={clearTasks} className="btn">Clear list</button>
       </div>
         <div>
           {tasks.map(task => (
@@ -117,9 +119,10 @@ export default function ToDo() {
             {task.title}<br></br>
             {task.description}
             {!task.isCompleted ? <p>PENDING</p> : <p>COMPLETED</p>}
-            <button onClick={() => handleTaskDelete(task.id)}>delete</button>
-            <button onClick={() => handleTaskEdit(task.id)}>edit</button>
-            <button onClick={() => markCompleted(task.id)}>completed</button>
+            {/* {task.finishBy} */}
+            <button onClick={() => handleTaskDelete(task.id)} className="btn">delete</button>
+            <button onClick={() => handleTaskEdit(task.id)} className="btn">edit</button>
+            <button onClick={() => markCompleted(task.id)} className="btn">completed</button>
           </div>))}
         </div>
     </div>
