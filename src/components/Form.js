@@ -4,7 +4,9 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 export default function Form(props) {
   const { setTasks, taskToEdit, editTask, afterEdit } = props;
-  const [input, setInput] = useState(taskToEdit ? taskToEdit.title : "");
+  const [titleInput, setTitleInput] = useState(
+    taskToEdit ? taskToEdit.title : ""
+  );
   const [descriptionInput, setDescriptionInput] = useState(
     taskToEdit ? taskToEdit.description : ""
   );
@@ -12,7 +14,8 @@ export default function Form(props) {
     taskToEdit ? taskToEdit.finishedBy : new Date()
   );
 
-  // formSubmit adds new task and updates state
+  // formSubmit adds or updates new/current task and updates state
+  // taskToEdit is passed in to Form if isEditing from Task === true, else { a new task is created }
   const formSubmit = e => {
     e.preventDefault();
 
@@ -30,16 +33,17 @@ export default function Form(props) {
     if (!taskToEdit) {
       setTasks(prev => [...prev, task]);
     } else {
+      // editTask updates the tasks values (App.js) & afterEdit changes isEditing back to false
       editTask(task);
       afterEdit();
     }
-    setInput("");
+    setTitleInput("");
     setDescriptionInput("");
   };
 
   // handles input for task title
   const handleTitleChange = event => {
-    setInput(event.target.value);
+    setTitleInput(event.target.value);
   };
 
   // handles input for task description
@@ -55,7 +59,7 @@ export default function Form(props) {
           className="input"
           type="text"
           name="task"
-          value={input}
+          value={titleInput}
           onChange={handleTitleChange}
           placeholder="Add title here"
         />

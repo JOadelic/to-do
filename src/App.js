@@ -23,7 +23,6 @@ export default function ToDo() {
       if (id === task.id) {
         task.isCompleted = true;
         setTasks([...tasks]);
-        console.log(tasks);
       }
     }
   };
@@ -36,7 +35,6 @@ export default function ToDo() {
         task.description = updatedTask.description;
         task.finishBy = updatedTask.finishBy;
         setTasks([...tasks]);
-        // console.log(tasks);
       }
     }
   };
