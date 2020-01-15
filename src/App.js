@@ -1,8 +1,6 @@
 import React, { useState, forwardRef } from 'react';
 import './App.scss'
 import classNames from 'classnames'
-// import Button from '@material-ui/core/Button';
-import DateFnsUtils from '@date-io/date-fns';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';
 import {
@@ -122,7 +120,6 @@ export default function ToDo() {
             <p className='taskTitle'>{task.title}</p>
             <p className='taskDescription'>{task.description}</p>
             {!task.isCompleted ? <p>PENDING</p> : <p>COMPLETED</p>}
-            {/* {format(task.finishBy, "'Finish by' iiii")} */}
             <p>Finish By:</p>
             {moment(task.finishBy).format('MMM Do YY')}
             <button onClick={() => handleTaskDelete(task.id)} className="btn">delete</button>
