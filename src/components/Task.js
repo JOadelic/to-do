@@ -23,8 +23,12 @@ export default function Task(props) {
         >
           <p className="taskTitle">{task.title}</p>
           <p className="taskDescription">{task.description}</p>
-          {!task.isCompleted ? <p>PENDING</p> : <p>COMPLETED</p>}
-          <p>Finish By:</p>
+          {!task.isCompleted ? (
+            <p className="pending">PENDING</p>
+          ) : (
+            <p className="completed">COMPLETED!</p>
+          )}
+          <p className="finishBy">Finish By:</p>
           {moment(task.finishBy).format("MMM Do YY")}
           <button onClick={() => handleTaskDelete(task.id)} className="btn">
             delete

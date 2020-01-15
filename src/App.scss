@@ -94,7 +94,7 @@ a {
 }
 
 .btn {
-  background-color: lightblue;
+  background-color: rgb(142, 210, 233);
   margin: 0.2rem;
   font-size: 1rem;
   border: 1px solid black;
@@ -135,6 +135,23 @@ a {
 .taskDescription {
   margin: 0.2rem;
   font-size: 1rem;
+  background-color: white;
+  padding: 0.2rem;
+}
+
+.completed {
+  color: greenyellow;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.pending {
+  color: rgb(255, 115, 0);
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+  font-weight: 500;
 }
 
 .MuiInputBase-input {
@@ -143,7 +160,7 @@ a {
   width: 100%;
   border: 0;
   height: 1.1875em;
-  margin: 0;
+  margin: 0.5rem;
   display: block;
   padding: 6px 0 7px;
   min-width: 0;
@@ -151,4 +168,8 @@ a {
   box-sizing: content-box;
   animation-name: MuiInputBase-keyframes-auto-fill-cancel;
   -webkit-tap-highlight-color: transparent;
+}
+
+.finishBy {
+  font-size: 1rem;
 }
