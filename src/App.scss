@@ -18,6 +18,7 @@ a {
   background-color: #3f51b5;
   padding: 30px;
   height: 100vh;
+  font-family: 'Raleway', sans-serif;
 
   .title {
     height: 3rem;
@@ -35,7 +36,7 @@ a {
     border-radius: 4px;
     width: 100%;
     margin-bottom: 1rem;
-    
+
     form {
       display: flex;
       flex-direction: column;
@@ -55,23 +56,39 @@ a {
     }
   }
   .todo {
-    background: #fff;
+    background-color: #bec7f6;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
-    // padding: 3px 10px;
+    padding: 3px 10px;
     font-size: 12px;
     margin-bottom: 6px;
     border-radius: 3px;
     display: flex;
     align-items: left;
     flex-direction: column;
+    border: 2px solid white;
   }
+
+  .todo-completed {
+    background-color: rgba(181, 250, 160, 0.623);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    padding: 3px 10px;
+    font-size: 12px;
+    margin-bottom: 6px;
+    border-radius: 3px;
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    border: 2px solid white;
+  }
+
   .input {
     font-size: 1rem;
     height: 2rem;
     box-sizing: border-box;
     border: 0;
     border-radius: 4px;
-    margin: 1rem;
+    margin: .5rem .3rem .5rem .3rem;
+    padding: .5rem;
   }
 }
 
@@ -79,26 +96,46 @@ a {
   background-color: lightblue;
   margin: .2rem;
   font-size: 1rem;
+  border: 1px solid black;
 }
 
 .btn:hover {
   background-color: rgb(28, 175, 224);
   margin: .2rem;
   font-size: 1rem;
+  border: 1px solid black;
+
 }
 
 
-.todo-completed {
-  background-color: rgba(90, 250, 42, 0.466);
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
-  padding: 3px 10px;
-  font-size: 12px;
-  margin-bottom: 6px;
-  border-radius: 3px;
-  display: flex;
-  align-items: left;
-  flex-direction: column;
+
+.taskTitle {
+  font-size: 1.5rem;
+  margin: .2rem;
+  font-weight: 400;
 }
+
+.taskDescription {
+  margin: .2rem;
+  font-size: 1rem;
+}
+
+.MuiInputBase-input {
+  font: inherit;
+  color: currentColor;
+  width: 100%;
+  border: 0;
+  height: 1.1875em;
+  margin: 0;
+  display: block;
+  padding: 6px 0 7px;
+  min-width: 0;
+  background: none;
+  box-sizing: content-box;
+  animation-name: MuiInputBase-keyframes-auto-fill-cancel;
+  -webkit-tap-highlight-color: transparent;
+}
+
 
 
 

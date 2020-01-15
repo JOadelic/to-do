@@ -1,8 +1,10 @@
 import React, { useState, forwardRef } from 'react';
 import './App.scss'
 import classNames from 'classnames'
-import Button from '@material-ui/core/Button';
-import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+// import Button from '@material-ui/core/Button';
+import DateFnsUtils from '@date-io/date-fns';
+import MomentUtils from '@date-io/moment';
+import moment from 'moment';
 import {
   DatePicker,
   TimePicker,
@@ -30,7 +32,7 @@ export default function ToDo() {
       finishBy: selectedDate
     }
 
-    if (task.title === "" || task.description === "") return alert("no task entered!")
+    if (task.title === "" || task.description === "") return alert("ENTER A TASK FIRST!")
     
     if (task) {
       setTasks((prev) => [...prev, task]);
@@ -83,30 +85,31 @@ export default function ToDo() {
       </div>
       <div className="todo-list">
         <form onSubmit={formSubmit}>
-          <p>Title:</p>
+          <p className='taskTitle'>Title:</p>
           <input
            className="input"
            type='text'
            name='task'
            value={input}
            onChange={handleTitleChange}
-           placeholder="title"
+           placeholder="Add title here"
           />
-          <p>Description:</p>
+          <p className='taskTitle'>Description:</p>
           <input
            className="input"
            type='text'
            name='description'
            value={descriptionInput}
            onChange={handleDescriptionChange}
-           placeholder="description"
+           placeholder="Add description here"
           /> 
-          <p>Finish By: <i>click date to change</i></p>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <p className='taskTitle'>Finish By:</p>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
             <DatePicker
-               value={selectedDate}
-               onChange={handleDateChange}
-                />
+              value={selectedDate}
+              onChange={handleDateChange}
+              placeholder="date here"
+            />
           </MuiPickersUtilsProvider>
           <br></br>
           <button onSubmit={formSubmit} className="btn">Add Task</button>
@@ -116,10 +119,12 @@ export default function ToDo() {
         <div>
           {tasks.map(task => (
           <div className={classNames(task.isCompleted ? 'todo-completed' : 'todo')} key={task}>
-            {task.title}<br></br>
-            {task.description}
+            <p className='taskTitle'>{task.title}</p>
+            <p className='taskDescription'>{task.description}</p>
             {!task.isCompleted ? <p>PENDING</p> : <p>COMPLETED</p>}
-            {/* {task.finishBy} */}
+            {/* {format(task.finishBy, "'Finish by' iiii")} */}
+            <p>Finish By:</p>
+            {moment(task.finishBy).format('MMM Do YY')}
             <button onClick={() => handleTaskDelete(task.id)} className="btn">delete</button>
             <button onClick={() => handleTaskEdit(task.id)} className="btn">edit</button>
             <button onClick={() => markCompleted(task.id)} className="btn">completed</button>
