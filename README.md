@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Final Product
 
-!["screenshot description"](#)
+!["To-do List demo"](https://github.com/JOadelic/to-do/blob/master/docs/to-do-app.gif?raw=true)
 
 ## Available Scripts
 
