@@ -70,7 +70,7 @@ a {
   }
 
   .todo-completed {
-    background-color: rgba(181, 250, 160, 0.623);
+    background-color: #bec7f6;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
     padding: 3px 10px;
     font-size: 12px;
@@ -79,7 +79,6 @@ a {
     display: flex;
     align-items: left;
     flex-direction: column;
-    // border: 2px solid white;
   }
 
   .input {
@@ -96,6 +95,21 @@ a {
 .btn {
   background-color: rgb(142, 210, 233);
   margin: 0.2rem;
+  font-size: 1rem;
+  border: 1px solid black;
+  width: 100%;
+}
+
+.clear-btn {
+  background-color: rgb(142, 210, 233);
+  font-size: 1rem;
+  border: 1px solid black;
+  width: 100%;
+  color: black;
+}
+
+.clear-btn:hover {
+  background-color: rgb(28, 175, 224);
   font-size: 1rem;
   border: 1px solid black;
   width: 100%;

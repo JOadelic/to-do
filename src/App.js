@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState } from "react";
 import Form from "./components/Form.js";
 import "./App.scss";
 import Task from "./components/Task.js";
@@ -53,8 +53,8 @@ export default function ToDo() {
           />
         ))}
       </div>
-      <button onClick={clearTasks} className="btn">
-        Clear list
+      <button onClick={clearTasks} className="clear-btn">
+        Clear Tasks
       </button>
     </div>
   );
